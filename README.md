@@ -1,6 +1,8 @@
-# root-calculator
+# Polynomial roots calculator
 
 A simple polynomial roots calculator script written in python.
+
+It uses the Gaus Theorem behind the scenes to find
 
 ## Requirements
 
@@ -32,3 +34,4 @@ $ python3 roots.calculator.py
 - Pending support complex roots for polynomials of greater grade than 2.
 - Pending support for complex coefficient polynomial
 - Pending support for irrational / rational coefficients (you can multiply your poly coefs by an scalar in the meantime to get rid of denominators)
+- Pending support to show if a root is double, triple, etc
