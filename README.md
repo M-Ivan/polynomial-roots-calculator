@@ -2,7 +2,7 @@
 
 A simple polynomial roots calculator script written in python.
 
-It uses the Gaus Theorem behind the scenes to find
+It uses the Gaus Theorem behind the scenes to find the potential roots of the polynomial. Then it evaluates each potential root in the polynomial to get the result.
 
 ## Requirements
 
