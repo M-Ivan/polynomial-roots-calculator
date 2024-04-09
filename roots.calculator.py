@@ -19,8 +19,8 @@ def request_input():
 
     poly: list[dict] = []
     for i in reversed(range(polyDegree + 1)):
-        coef = input(f"Degree {i} coefficient: ")
-        poly.append({"Degree": i, "coef": int(coef)})
+        coef = input(f"degree {i} coefficient: ")
+        poly.append({"degree": i, "coef": int(coef)})
     print(f"Polynomial: {build_polynomial(poly)}")
     return (poly, polyDegree)
 
