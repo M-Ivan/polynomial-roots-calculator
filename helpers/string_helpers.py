@@ -1,14 +1,16 @@
 def build_polynomial(terms: list[dict]):
     polynomial = []
 
-    for term in sorted(terms, key=lambda x: x["grade"], reverse=True):
+    determine_sign = lambda coef: f"{coef if coef < 0 else f'+{coef}'}"
+
+    for term in terms:
         coefficient = term["coef"]
         grade = term["grade"]
         if coefficient != 0:
             if grade == 0:
-                polynomial.append(str(coefficient))
+                polynomial.append(determine_sign(coefficient))
             elif grade == 1:
-                polynomial.append(f"{coefficient}x")
+                polynomial.append(f"{determine_sign(coefficient)}x")
             else:
-                polynomial.append(f"{coefficient}(x^{grade})")
-    return " + ".join(polynomial)
+                polynomial.append(f"{determine_sign(coefficient)}(x^{grade})")
+    return " ".join(polynomial)
