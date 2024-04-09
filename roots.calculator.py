@@ -1,11 +1,9 @@
 from helpers.math_helpers import (
-    baskara,
-    evaluate,
-    gauss_teorem,
+    gauss_lemma,
     rationalize_float,
     rationalize_float_list,
     ruffinis_rule,
-    resolve_low_grade,
+    solve_low_Degree,
 )
 from helpers.array_helpers import unique
 from helpers.string_helpers import build_polynomial
@@ -13,24 +11,29 @@ import sympy as sp
 
 
 def request_input():
-    polyGrade = int(input("Enter the grade of the polynomial: "))
+    polyDegree = int(input("Enter the degree of the polynomial: "))
+
+    if polyDegree < 0:
+        print("Degree must be a positive integer. Exiting")
+        exit(1)
+
     poly: list[dict] = []
-    for i in reversed(range(polyGrade + 1)):
-        coef = input(f"Grade {i} coefficient: ")
-        poly.append({"grade": i, "coef": int(coef)})
+    for i in reversed(range(polyDegree + 1)):
+        coef = input(f"Degree {i} coefficient: ")
+        poly.append({"Degree": i, "coef": int(coef)})
     print(f"Polynomial: {build_polynomial(poly)}")
-    return (poly, polyGrade)
+    return (poly, polyDegree)
 
 
-def get_roots(poly: list[dict], polyGrade: int):
+def get_roots(poly: list[dict], polyDegree: int):
     ind_doef: int = poly[-1]["coef"]
     main_coef: int = poly[0]["coef"]
 
-    if polyGrade < 3:
-        return resolve_low_grade(poly, polyGrade)
+    if polyDegree < 3:
+        return solve_low_Degree(poly, polyDegree)
 
     # Find roots via gauss (will get only rational roots. See ())
-    p_roots = unique(gauss_teorem(ind_doef, main_coef))
+    p_roots = unique(gauss_lemma(ind_doef, main_coef))
     p_root_pretty = rationalize_float_list(p_roots)
 
     print(f"Potential roots: {[sp.pretty(p_root) for p_root in p_root_pretty]}")
@@ -39,18 +42,17 @@ def get_roots(poly: list[dict], polyGrade: int):
     for p_root in p_roots:
 
         quotient, remainder = ruffinis_rule(poly, p_root)
-        quotient_grade = max(map(lambda q_term: q_term["grade"], quotient))
+        quotient_Degree = max(map(lambda q_term: q_term["degree"], quotient))
 
         while remainder == 0:
             roots.append(rationalize_float(p_root))
-            quotient_grade = max(map(lambda q_term: q_term["grade"], quotient))
+            quotient_Degree = max(map(lambda q_term: q_term["degree"], quotient))
 
-            if quotient_grade < 3:
-                roots.extend(resolve_low_grade(quotient, quotient_grade))
+            if quotient_Degree < 3:
+                roots.extend(solve_low_Degree(quotient, quotient_Degree))
                 return roots
 
             quotient, remainder = ruffinis_rule(quotient, p_root)
-
             if remainder != 0:
                 break
 
@@ -58,8 +60,8 @@ def get_roots(poly: list[dict], polyGrade: int):
 
 
 def exec():
-    poly, polyGrade = request_input()
-    roots = get_roots(poly, polyGrade)
+    poly, polyDegree = request_input()
+    roots = get_roots(poly, polyDegree)
 
     print(f"Found roots: {[sp.pretty(root) for root in roots]}")
 

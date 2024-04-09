@@ -19,7 +19,7 @@ $ pipenv install
 
 - Rational display of periodic floats
 - Square root display of irrational floats (`sqrt(2)` = √2)
-- Support for any grade polynomial
+- Support for any degree polynomial
 
 ## Usage
 
@@ -31,7 +31,7 @@ $ python3 roots.calculator.py
 
 ## Known issues
 
-- Pending support complex roots for polynomials of greater grade than 2.
+- Pending support complex roots for polynomials of greater degree than 2.
 - Pending support for complex coefficient polynomial
 - Pending support for irrational / rational coefficients (you can multiply your poly coefs by an scalar in the meantime to get rid of denominators)
 - Pending support to show if a root is double, triple, etc

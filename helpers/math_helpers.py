@@ -19,30 +19,31 @@ def ruffinis_rule(poly: list[dict], divisor: float) -> tuple[list[dict], float]:
     # Iterate through the terms
     for term in poly:
         quotient_coef = term["coef"] + remainder
-        quotient.append({"grade": term["grade"] - 1, "coef": quotient_coef})
+        quotient.append({"degree": term["degree"] - 1, "coef": quotient_coef})
         remainder = quotient_coef * divisor
 
     # Remove leading zeros from the quotient
     while len(quotient) > 0 and (
-        quotient[-1]["coef"] == 0 or quotient[-1]["grade"] < 0
+        quotient[-1]["coef"] == 0 or quotient[-1]["degree"] < 0
     ):
         quotient.pop()
 
     return list(quotient), remainder
 
 
-def resolve_low_grade(poly: list[dict], polyGrade: int) -> tuple[float]:
-    if polyGrade == 0:
-        return []
+def solve_low_Degree(poly: list[dict], polyDegree: int) -> tuple[float]:
+    if polyDegree == 0:
+        print("The polynomial is a constant (degree = 0). Exiting")
+        exit()
 
-    if polyGrade == 1:
+    if polyDegree == 1:
         return [resolve_linear(poly)]
 
-    if polyGrade == 2:
+    if polyDegree == 2:
         return baskara(poly)
 
 
-def gauss_teorem(ind: int, main: int) -> list[float]:
+def gauss_lemma(ind: int, main: int) -> list[float]:
     ind_divisors = get_divisors(ind)
     main_divisors = get_divisors(main)
 
@@ -97,7 +98,7 @@ def evaluate(terms: list[dict], x: float) -> float:
     result = 0
     for term in terms:
         coefficient = term["coef"]
-        grade = term["grade"]
+        degree = term["degree"]
 
-        result += coefficient * (x**grade)
+        result += coefficient * (x**degree)
     return result

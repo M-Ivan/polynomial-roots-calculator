@@ -5,12 +5,12 @@ def build_polynomial(terms: list[dict]):
 
     for term in terms:
         coefficient = term["coef"]
-        grade = term["grade"]
+        degree = term["degree"]
         if coefficient != 0:
-            if grade == 0:
+            if degree == 0:
                 polynomial.append(determine_sign(coefficient))
-            elif grade == 1:
+            elif degree == 1:
                 polynomial.append(f"{determine_sign(coefficient)}x")
             else:
-                polynomial.append(f"{determine_sign(coefficient)}(x^{grade})")
+                polynomial.append(f"{determine_sign(coefficient)}(x^{degree})")
     return " ".join(polynomial)
