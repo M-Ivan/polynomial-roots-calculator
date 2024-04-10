@@ -31,7 +31,7 @@ def ruffinis_rule(poly: list[dict], divisor: float) -> tuple[list[dict], float]:
     return list(quotient), remainder
 
 
-def solve_low_Degree(poly: list[dict], polyDegree: int) -> tuple[float]:
+def solve_low_degree(poly: list[dict], polyDegree: int) -> tuple[float]:
     if polyDegree == 0:
         print("The polynomial is a constant (degree = 0). Exiting")
         exit()

@@ -3,7 +3,7 @@ from helpers.math_helpers import (
     rationalize_float,
     rationalize_float_list,
     ruffinis_rule,
-    solve_low_Degree,
+    solve_low_degree,
 )
 from helpers.array_helpers import unique
 from helpers.string_helpers import build_polynomial
@@ -30,7 +30,7 @@ def get_roots(poly: list[dict], polyDegree: int):
     main_coef: int = poly[0]["coef"]
 
     if polyDegree < 3:
-        return solve_low_Degree(poly, polyDegree)
+        return solve_low_degree(poly, polyDegree)
 
     # Find roots via gauss (will get only rational roots. See ())
     p_roots = unique(gauss_lemma(ind_doef, main_coef))
@@ -42,14 +42,17 @@ def get_roots(poly: list[dict], polyDegree: int):
     for p_root in p_roots:
 
         quotient, remainder = ruffinis_rule(poly, p_root)
-        quotient_Degree = max(map(lambda q_term: q_term["degree"], quotient))
+        quotient_degree = max(map(lambda q_term: q_term["degree"], quotient))
 
         while remainder == 0:
             roots.append(rationalize_float(p_root))
-            quotient_Degree = max(map(lambda q_term: q_term["degree"], quotient))
+            quotient_degree = max(map(lambda q_term: q_term["degree"], quotient))
 
-            if quotient_Degree < 3:
-                roots.extend(solve_low_Degree(quotient, quotient_Degree))
+            if len(roots) == polyDegree:
+                return roots
+
+            if quotient_degree < 3:
+                roots.extend(solve_low_degree(quotient, quotient_degree))
                 return roots
 
             quotient, remainder = ruffinis_rule(quotient, p_root)
